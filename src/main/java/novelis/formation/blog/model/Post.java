@@ -14,11 +14,7 @@ import java.util.List;
 @NoArgsConstructor // creates default constructor (no arguments)
 @AllArgsConstructor // creates a constructor with all fields.
 @Builder // enables building the entity by field, instead of using all fields in constructor
-public class Post {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Post extends BaseEntity{
 
     @Column(nullable = false)
     private String title;
@@ -27,9 +23,6 @@ public class Post {
     private String content;
 
     private String authorId; // will come from JWT later
-
-    @CreationTimestamp
-    private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true) // orphanRemoval = true → deleting comment from list removes it from DB
     private List<Comment> comments = new ArrayList<>();

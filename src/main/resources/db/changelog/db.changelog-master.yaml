@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/V1__init.yaml
+  - include:
+      file: db/changelog/V2_add_column_summary.yaml
+  - include:
+      file: db/changelog/V3_deleting_summary.yaml

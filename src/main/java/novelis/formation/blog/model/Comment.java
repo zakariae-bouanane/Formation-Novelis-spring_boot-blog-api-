@@ -11,19 +11,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Comment {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Comment extends BaseEntity {
 
     @Column(nullable = false, length = 2000)
     private String content;
 
     private String authorId;
 
-    @CreationTimestamp
-    private LocalDateTime createdAt;
+
 
     @ManyToOne(fetch = FetchType.LAZY) // When you load a Comment, Post is NOT loaded immediately.
     @JoinColumn(nullable = false)

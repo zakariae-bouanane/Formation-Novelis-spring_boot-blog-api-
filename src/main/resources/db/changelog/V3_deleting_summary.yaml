@@ -1,0 +1,9 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 3
+      author: zakariae
+      changes:
+        - dropColumn:
+            tableName: post
+            columnName: summary

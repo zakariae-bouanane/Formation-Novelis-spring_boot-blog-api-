@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: zakariae
+      changes:
+        - addColumn:
+            tableName: post
+            columns:
+              - column:
+                  name: summary
+                  type: VARCHAR(255)

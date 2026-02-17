@@ -19,8 +19,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // APIs don't use CSRF
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/login").permitAll()
-                        .anyRequest().authenticated()
-//                        .anyRequest().permitAll()
+//                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // making requests stateless, so it doesnt change anything in server (independent requests)

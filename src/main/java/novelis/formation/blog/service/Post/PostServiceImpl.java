@@ -5,6 +5,7 @@ import novelis.formation.blog.exception.ResourceNotFoundException;
 import novelis.formation.blog.mapper.PostMapper;
 import novelis.formation.blog.model.Post;
 import novelis.formation.blog.repository.PostRepository;
+import novelis.formation.blog.service.Security.AuthenticatedUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,14 +18,30 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
     private final PostMapper postMapper;
+    private final AuthenticatedUser authenticatedUser;
+
+
+    @Override
+    public Page<PostResponseDto> search(String keyword, Pageable pageable) {
+
+        Page<Post> posts =
+                postRepository
+                        .findByTitleContainingIgnoreCaseOrContentContainingIgnoreCase(
+                                keyword,
+                                keyword,
+                                pageable
+                        );
+
+        return posts.map(postMapper::toDto);
+    }
 
     @Override
     public PostResponseDto create(PostRequestDto dto) {
 
         Post post = postMapper.toEntity(dto);
 
-        // temporary author (until security is added)
-        post.setAuthorId("anonymous");
+        String userId = authenticatedUser.getCurrentUserId();
+        post.setAuthorId(userId);
 
         Post saved = postRepository.save(post);
 

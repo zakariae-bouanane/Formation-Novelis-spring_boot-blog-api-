@@ -9,6 +9,8 @@ public interface PostService {
 
     PostResponseDto create(PostRequestDto dto);
 
+    Page<PostResponseDto> search(String keyword, Pageable pageable);
+
     PostResponseDto getById(Long id);
 
     Page<PostResponseDto> getAll(Pageable pageable);

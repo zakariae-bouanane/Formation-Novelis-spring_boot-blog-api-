@@ -19,6 +19,20 @@ public class PostController {
 
     private final PostService postService;
 
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<PostResponseDto>> search(
+            @RequestParam String keyword,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        return ResponseEntity.ok(
+                postService.search(keyword, pageable)
+        );
+    }
+
     @PostMapping
     public ResponseEntity<PostResponseDto> create(
             @Valid @RequestBody PostRequestDto dto) {

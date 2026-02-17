@@ -1,4 +1,4 @@
-package novelis.formation.blog.mapper.post;
+package novelis.formation.blog.mapper;
 
 import novelis.formation.blog.DTO.post.PostRequestDto;
 import novelis.formation.blog.DTO.post.PostResponseDto;

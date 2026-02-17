@@ -1,4 +1,4 @@
-package novelis.formation.blog.service;
+package novelis.formation.blog.service.Post;
 
 import novelis.formation.blog.DTO.post.PostRequestDto;
 import novelis.formation.blog.DTO.post.PostResponseDto;

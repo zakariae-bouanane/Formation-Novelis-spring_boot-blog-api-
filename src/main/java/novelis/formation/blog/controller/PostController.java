@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import novelis.formation.blog.DTO.post.PostRequestDto;
 import novelis.formation.blog.DTO.post.PostResponseDto;
-import novelis.formation.blog.service.PostService;
+import novelis.formation.blog.service.Post.PostService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

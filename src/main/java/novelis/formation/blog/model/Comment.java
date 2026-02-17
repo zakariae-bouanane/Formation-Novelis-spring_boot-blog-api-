@@ -18,8 +18,6 @@ public class Comment extends BaseEntity {
 
     private String authorId;
 
-
-
     @ManyToOne(fetch = FetchType.LAZY) // When you load a Comment, Post is NOT loaded immediately.
     @JoinColumn(nullable = false)
     private Post post;

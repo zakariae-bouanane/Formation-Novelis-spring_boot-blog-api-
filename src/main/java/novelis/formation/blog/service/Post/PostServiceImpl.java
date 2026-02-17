@@ -1,8 +1,8 @@
-package novelis.formation.blog.service;
+package novelis.formation.blog.service.Post;
 
 import lombok.RequiredArgsConstructor;
 import novelis.formation.blog.exception.ResourceNotFoundException;
-import novelis.formation.blog.mapper.post.PostMapper;
+import novelis.formation.blog.mapper.PostMapper;
 import novelis.formation.blog.model.Post;
 import novelis.formation.blog.repository.PostRepository;
 import org.springframework.data.domain.Page;

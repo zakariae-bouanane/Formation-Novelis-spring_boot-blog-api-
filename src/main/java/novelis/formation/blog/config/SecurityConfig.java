@@ -7,6 +7,10 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 @EnableMethodSecurity
@@ -18,7 +22,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // APIs don't use CSRF
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/login").permitAll()
+                                .requestMatchers("/api/auth/login").permitAll()
 //                        .anyRequest().authenticated()
                         .anyRequest().permitAll()
                 )
@@ -30,7 +34,35 @@ public class SecurityConfig {
                 .logout(logout -> logout.disable())
 
                 // set up for JWT with keycloack
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
+
+                /// CORS
+                    .cors(cors -> {
+                    CorsConfiguration config = new CorsConfiguration();
+
+                    // ✅ allowed frontend origin (React)
+                    config.setAllowedOrigins(List.of("http://localhost:3001"));
+
+                    // ✅ allowed HTTP methods
+                    config.setAllowedMethods(
+                            List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                    );
+
+                    // ✅ allowed headers from frontend
+                    config.setAllowedHeaders(List.of("*"));
+
+                    // ✅ allow cookies / credentials (important for auth)
+                    config.setAllowCredentials(true);
+
+                    // 🔗 map this config to URL patterns
+                    UrlBasedCorsConfigurationSource source =
+                            new UrlBasedCorsConfigurationSource();
+                    source.registerCorsConfiguration("/**", config);
+
+                    // 🚨 VERY IMPORTANT
+                    // tell Spring Security to use this CORS source
+                    cors.configurationSource(source);
+                });
 
         return http.build();
     }
